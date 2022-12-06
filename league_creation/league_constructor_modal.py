@@ -3,6 +3,7 @@ from typing import Callable, Awaitable
 import nextcord
 
 from league import League, Constructors
+from league_creation import LeagueConstructorModal
 
 
 class LeagueConstructorModal(nextcord.ui.Modal):
@@ -12,20 +13,35 @@ class LeagueConstructorModal(nextcord.ui.Modal):
     }
 
     def __init__(self, callback: Callable[[nextcord.Interaction, League], Awaitable[None]], league: League,
-                 number_of_teams: int) -> None:
+                 ) -> None:
         super().__init__("", timeout=None)
         self.league = league
         self.on_submit = callback
 
-        self.fields = [
-            nextcord.ui.StringSelect(
-                options=list(self.__class__.CONSTRUCTOR_OPTIONS.keys()),
-                placeholder=f"Constructor {i + 1}"
-            ) for i in range(number_of_teams)
-        ]
-        for field in self.fields:
-            print(f"Added field: {field.placeholder}")
-            self.add_item(field)
+        self.name = nextcord.ui.TextInput(
+            label="Constructor Name",
+            placeholder="Enter your constructor's name here...",
+            min_length=3,
+            max_length=50,
+        )
+        self.add_item(self.name)
+
+        self.colour = nextcord.ui.TextInput(
+            label="Constructor Colour",
+            placeholder="Enter your constructor's team colour here (RR-GG-BB)...",
+            min_length=7,
+            max_length=7,
+        )
+        self.add_item(self.name)
+
+        self.description = nextcord.ui.TextInput(
+            label="Constructor Description",
+            style=nextcord.TextInputStyle.paragraph,
+            placeholder="Enter your constructor's description here...",
+            required=False,
+            max_length=4_000,
+        )
+        self.add_item(self.description)
 
     async def callback(self, interaction: nextcord.Interaction) -> None:
         self.league.add_constructors()

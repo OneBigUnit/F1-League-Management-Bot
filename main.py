@@ -3,6 +3,7 @@ from nextcord.ext import commands
 import os
 from cogs import Administration, LeagueSetup
 
+
 DESCRIPTION = (
     """
     A discord bot to manage custom F1 leagues for the F1 22 EA Game.

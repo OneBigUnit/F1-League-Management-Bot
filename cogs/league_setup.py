@@ -25,11 +25,11 @@ ADD_DRIVER_COMMAND_DESCRIPTION = (
 )
 
 CONSTRUCTORS_PREBUILT_TYPE = nextcord.SlashOption(
-    required=False, choices=[str(c.value) for c in Constructors], name="Prebuilt Constructor", default=None,
+    required=False, choices=[str(c.value) for c in Constructors], name="prebuilt_constructor", default=None,
     description="Select or prebuilt constructor, or leave this field to add a custom constructor"
 )
 DRIVERS_PREBUILT_TYPE = nextcord.SlashOption(
-    required=False, choices=[str(d.value) for d in Drivers], name="Prebuilt Driver", default=None,
+    required=False, choices=[str(d.value) for d in Drivers], name="prebuilt_driver", default=None,
     description="Select or prebuilt driver, or leave this field to add a custom driver"
 )
 
